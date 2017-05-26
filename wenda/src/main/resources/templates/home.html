@@ -1,62 +1,57 @@
 <html>
-    <head>
-        <title>
-            Spring Boot home.html
-        </title>
-    </head>
-    <body>
-        #*
-        块注释
-        *#
-        $!{key}<br><!--读取后台传过来的参数，其中$表示取从后台传过来的变量的值，！表示
-                        如果变量不存在强制为空-->
-        $!{key1}##不可以显示
-        ${key2}<br>##可以显示
+<body>
+<pre>
+    #*
+    你看不到我~~~~
+    *#
+    $!{value1}
+    $!{value2} ## 如果不存在，强制为空
+    ${value3}
 
-        colors:$!{colors}<br>##直接输出colors对象
+    colors: $!{colors}
 
-        ##for循环,foreach.index从0开始，foreach.count从1开始
-        #foreach($color in $colors)
-            This is color:$!{foreach.index},$color,$!{foreach.count}<br>
-        #end
+    #foreach($color in $colors)
+        This is Color $!{foreach.index}: $color, $!{foreach.count}
+    #end
 
-        ##遍历map
-        #foreach($key in $map.keySet())
-            Key:$key,Value:$map.get($key)<br>
-        #end
-        <br>
-        #foreach($entry in $map.entrySet())
-            Key:$entry.getKey(),Value:$entry.getValue()<br>
-        #end
+    #foreach($key in $map.keySet())
+        Number: $key, Value: $map.get($key)
+    #end
 
-        ##处理对象当使用user.xxx,其会自动调用getXxx()
-        User:$!{user.name},
-        $!{user.getDescription()}
-        $!{user.description}<br>
+    #foreach($kv in $map.entrySet())
+        Number: $kv.key, Value: $kv.value
+    #end
 
-        ##包含其他页面有两种用法：
-            ##（1）parse,将其他页面填充到该语句所处位置，并对其中的内容进行解析
-            ##（2）include,将其他页面填充到该语句所处位置，不会进行解析适合包含静态文件
-        #set($title="hello")
-        Parse:#parse("header.html")<br>
-        Include:#include("header.html")<br>
+    User:  $!{user.name}
+    $!{user.description}
+    $!{user.getDescription()}
 
-        ##velocity中的宏定义即函数定义
-        #macro(render_color,$index,$color)
-            Color Render Macro $index,$color<br>
-        #end
+    #set($title = "nowcoder_title")
+    Title: $!{title}
 
-        ##调用函数即调用宏
-        #foreach($color in $colors)
-            #render_color(${foreach.index},$color)
-        #end
 
-        ##由一个变量组成另一个变量
-        #set($hello="hello")
-        #set($helloword="$!{hello} word")
-        $hello<br>
-        $helloword
+    Parse: #parse("header.html")
+    Include: #include("header.html")
 
-        ##
-    </body>
+    #macro (render_color, $index, $color)
+        Color Render Macro $index, $color
+    #end
+
+    #foreach($color in $colors)
+        #render_color($foreach.index, $color)
+    #end
+
+    #set($hello = "hello")
+    #set($helloworld1 = "$!{hello} world")
+    $!hello
+    $helloworld1
+    #set($helloworld2 = '$!{hello} world')
+    $helloworld2
+
+
+
+
+
+</pre>
+</body>
 </html>
