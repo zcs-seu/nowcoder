@@ -3,6 +3,8 @@ package com.nowcoder.controller;
 import com.nowcoder.model.User;
 
 import com.nowcoder.service.WendaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,10 @@ import java.util.*;
  * Created by seu on 2017/5/23.
  */
 //利用注解指定这里是一个Controller
-@Controller
+//@Controller
 public class IndexContoller {
 
+    private static final Logger logger = LoggerFactory.getLogger(IndexContoller.class);
     //通过注解导入WendaService对象
     @Autowired
     WendaService wendaService;
